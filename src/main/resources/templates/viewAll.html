@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/baseUi::baseLayout('All Users', ~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<section>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-md-10 offset-1">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Sr.No</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Address</th>
+								<th scope="row">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${#lists.isEmpty(userPage)}">
+								<td colspan="5" class="text-center">No users found.</td>
+							</tr>
+							<tr th:each="list,stat:${userPage.content}">
+								<th scope="row" th:text="${stat.index + 1}">1</th>
+								<td th:text="${list.name}"></td>
+								<td th:text="${list.email}"></td>
+								<td th:text="${list.address}"></td>
+								<td><a th:href="@{'/edit/'+${list.id}}"
+									class="btn btn-warning">Edit</a> <a
+									th:href="@{'/delete/'+${list.id}}" class="btn btn-danger">Delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- Pagination Start -->
+					<nav aria-label="..." th:if="${!#lists.isEmpty(userPage.content)}">
+						<ul class="pagination">
+							<li class="page-item"
+								th:classappend="${currentPage == 0} ? 'disabled'"><a
+								th:href="@{'/view?pageNo='+${currentPage-1}}" class="page-link">Previous</a></li>
+							<li class="page-item"
+								th:each="i:${#numbers.sequence(0,userPage.totalPages-1)}"
+								th:classappend="${i == currentPage} ? 'active'"><a
+								class="page-link" th:text=${i+1}
+								th:href="@{'/view?pageNo='+${i}}">1</a></li>
+							<li class="page-item"
+								th:classappend="${!userPage.hasNext()}?'disabled'"><a
+								class="page-link" th:href="@{'/view?pageNo='+${currentPage+1}}">Next</a></li>
+						</ul>
+					</nav>
+					<!-- Pagination End -->
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
