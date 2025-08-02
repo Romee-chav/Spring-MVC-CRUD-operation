@@ -1,4 +1,4 @@
-his is a simple Java web application demonstrating CRUD (Create, Read, Update, Delete) operations using Spring MVC, JSP, Hibernate (or JDBC), and MySQL.
+This is a simple Java web application demonstrating CRUD (Create, Read, Update, Delete) operations using Spring MVC, JSP, Hibernate (or JDBC), and MySQL.
 🔧 Technologies Used
 Java 8+
 Spring MVC
